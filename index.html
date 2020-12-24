@@ -11,23 +11,26 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form onsubmit="return signup()">
+            <form action="#" onsubmit="return signup()">
                 <h1>Create Account</h1>
                 <span>or use your email for registration</span>
                 <input type="text" id="Sname" placeholder="Name" required />
                 <input type="email" id="Semail" placeholder="Email" required />
                 <input type="password" id="Spw" placeholder="Password" required />
                 <button>Sign Up</button>
+                <p id="res"></p>
+
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form onsubmit="return login()">
+            <form action="#" onsubmit="return login()">
                 <h1>Log in</h1>
                 <span>or use your account</span>
-                <input type="email" id="Lemail" placeholder="Email" />
-                <input type="password" id="Lpw" placeholder="Password" />
+                <input type="email" id="Lemail" placeholder="Email" required/>
+                <input type="password" id="Lpw" placeholder="Password" required/>
                 <a href="#">Forgot your password?</a>
                 <button>LOG IN</button>
+                <p id="result"></p>
             </form>
         </div>
         <div class="overlay-container">
@@ -59,6 +62,8 @@
             container.classList.remove("right-panel-active");
         });
     </script>
+
+    <script src="app.js"></script>
 </body>
 
 </html>
