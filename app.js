@@ -9,7 +9,7 @@ function signup() {
     document.getElementById('Semail').value = "";
     document.getElementById('Spw').value = "";
     const Http = new XMLHttpRequest();
-    const url = 'http://localhost:3000/signup';
+    const url = 'https://server-class-one.herokuapp.com/signup';
     Http.open("POST", url);
     Http.setRequestHeader("Content-Type", "application/json");
     Http.send(JSON.stringify(user));
@@ -20,21 +20,21 @@ function signup() {
     return false
 }
 
-function login() {
-    let Lemail = document.getElementById('Lemail').value;
-    let Lpw = document.getElementById('Lpw').value;
+// function login() {
+//     let Lemail = document.getElementById('Lemail').value;
+//     let Lpw = document.getElementById('Lpw').value;
 
-    const Http = new XMLHttpRequest();
-    const url = 'http://localhost:3000/login';
-    Http.open("POST", url);
-    Http.setRequestHeader("Content-Type", "application/json");
-    Http.send(JSON.stringify({ email: Lemail, password: Lpw }));
-    document.getElementById('Lemail').value = ""
-    document.getElementById('Lpw').value = ""
-    Http.onreadystatechange = (e) => {
-        document.getElementById('result').innerHTML = Http.responseText;
-    }
-}
+//     const Http = new XMLHttpRequest();
+//     const url = 'http://localhost:3000/login';
+//     Http.open("POST", url);
+//     Http.setRequestHeader("Content-Type", "application/json");
+//     Http.send(JSON.stringify({ email: Lemail, password: Lpw }));
+//     document.getElementById('Lemail').value = ""
+//     document.getElementById('Lpw').value = ""
+//     Http.onreadystatechange = (e) => {
+//         document.getElementById('result').innerHTML = Http.responseText;
+//     }
+// }
 
 // function logout() {
 //     const Http = new XMLHttpRequest();
