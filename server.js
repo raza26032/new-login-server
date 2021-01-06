@@ -57,25 +57,6 @@ app.get("/", (req, res, next) => {
 });
 
 app.post("/signup", (req, res, next) => {
-    // var mEmail = req.body.userEmail === mEmail;
-    // console.log(mEmail)
-    // let isFound = false;
-
-    // for (let i = 0; i < user.length; i++) {
-    //     if (user[i].userEmail === mEmail) {
-    //         isFound = true;
-    //         break;
-    //     }
-    // }
-    // if (isFound) {
-    //     res.send("User Already Exists")
-    // }
-    // else {
-    //     user.push(req.body);
-    //     res.send("SignUp Successfully")
-    // }
-    // console.log(user)
-
     if (!req.body.userName
         || !req.body.userEmail
         || !req.body.userPassword) {
@@ -91,49 +72,49 @@ app.post("/signup", (req, res, next) => {
         return;
     }
 
-    var newUser = new userModel({
-        "name": req.body.userName,
-        "email": req.body.userEmail,
-        "password": req.body.userPassword,
+    userModel.findOne({ email: req.body.userEmail }, function (err, data) {
+        if (err) {
+            console.log(err)
+        }
+
+        else if (!data) {
+            var newUser = new userModel({
+                "name": req.body.userName,
+                "email": req.body.userEmail,
+                "password": req.body.userPassword,
+            })
+            newUser.save((err, data) => {
+                if (!err) {
+                    res.send("User created")
+                } else {
+                    console.log(err);
+                    res.status(500).send("user create error, " + err)
+                }
+            });
+        }
+        else {
+            res.send('Already registered')
+            console.log(data)
+        }
     })
 
-    newUser.save((err, data) => {
-        if (!err) {
-            res.send("user created")
-        } else {
-            console.log(err);
-            res.status(500).send("user create error, " + err)
+})
+
+app.post('/login', (req, res, next) => {
+    userModel.findOne({ email: req.body.email, password: req.body.password }, function (err, data) {
+        if (err) {
+            console.log(err)
         }
-    });
+        else if (!data) {
+            res.send("user not found");
+            console.log(data)
+        }
+        else {
+            res.send("Login Sucessfully")
+        }
+    })
+
 });
-
-// app.post("/login", (req, res, next) => {
-//     let email = req.body.email
-//     let password = req.body.password
-
-//     let isFound = false
-
-//     for (let i = 0; i < user.length; i++) {
-
-//         console.log(user[i].userEmail, email)
-
-//         if (user[i].userEmail === email) {
-//             isFound = i;
-//             var currentemail = email;
-//             break;
-//         }
-//     }
-//     if (isFound === false) {
-//         res.send("User Not Found")
-//     }
-//     else if (user[isFound].userPassword === password) {
-//         res.send(`Login Successfully Name: ${user[isFound].userName} Email: ${currentemail}`)
-//     }
-
-//     else {
-//         res.status(403).send("Password or Email Invalid")
-//     }
-// });
 
 app.listen(PORT, () => {
     console.log("server is running on: ", PORT);
